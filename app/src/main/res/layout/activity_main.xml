@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.zaid.musicplayer.MainActivity">
+
+    <TextView
+        android:id="@+id/Md_Rafi"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Mohammed Rafi"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:paddingTop="15dp"
+        android:textStyle="bold"
+        android:background="#FFFF32"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="List View"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:paddingTop="15dp"
+        android:textStyle="bold"
+        android:background="#ffffff"/>
+</LinearLayout>
