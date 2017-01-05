@@ -3,17 +3,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-/**
- * Created by Zaid on 1/3/2017.
- */
 
 public class m_song_1 extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
@@ -25,7 +22,6 @@ public class m_song_1 extends AppCompatActivity {
             releaseMediaPlayer();
         }
     };
-    private boolean back = false;
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +29,7 @@ public class m_song_1 extends AppCompatActivity {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Action bar Back button
 
     /**
-     * Recieving song resources from songs class...
+     * Receiving song resources from songs class...
      * using key SongA
       */
     Bundle bm = getIntent().getExtras();
@@ -91,9 +87,32 @@ public class m_song_1 extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed(){
+        AlertDialog.Builder exitdialog = new AlertDialog.Builder(this);
+        exitdialog.setTitle("Exit Player");
+        exitdialog.setMessage("Are you sure you want to go back?");
+        exitdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(m_song_1.this,songs.class);startActivity(intent);
+                mediaPlayer.stop();
+                m_song_1.this.finish();
+            }
+        });
+        exitdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = exitdialog.create();
+        alertDialog.show();
+    }
+
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
             AlertDialog.Builder exitdialog = new AlertDialog.Builder(this);
             exitdialog.setTitle("Exit Player");
@@ -116,6 +135,35 @@ public class m_song_1 extends AppCompatActivity {
             AlertDialog alertDialog = exitdialog.create();
             alertDialog.show();
         }
-        return super.onKeyDown(keyCode,event);
+        return super.onKeyUp(keyCode,event);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                AlertDialog.Builder exitdialog = new AlertDialog.Builder(this);
+                exitdialog.setTitle("Exit Player");
+                exitdialog.setMessage("Are you sure you want to go back?");
+                exitdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(m_song_1.this,songs.class);startActivity(intent);
+                        mediaPlayer.stop();
+                        m_song_1.this.finish();
+                    }
+                });
+                exitdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = exitdialog.create();
+                alertDialog.show();
+                break;
+        }
+        return true;
     }
 }
